@@ -115,6 +115,7 @@ class Strat(Vanilla):
                 "ts": 0,
             }
         
+        self.initial_candle = None
 
         # Settings:
         self.udd_stop_enabled = False  # Disabled by default, if this setting is missing in any strategy it will not perform udd stop.
@@ -155,6 +156,7 @@ class Strat(Vanilla):
 
     def run_once(self):
         print("--------> RUN ONCE!")
+        self.initial_candle = self.candles[-1]
         try:
             if self.is_open:
                 self.resume = True
@@ -1364,13 +1366,14 @@ class Strat(Vanilla):
         We need to add some time to latest candle's ts.
         (timeframe at this case)
         """
-        timeframe = 300000
-        try:
-            timeframe = self.candles[-1][0] - self.candles[-2][0]
-        except:
-            pass
+        # timeframe = 300000
+        # try:
+        #     timeframe = self.candles[-1][0] - self.candles[-2][0]
+        # except:
+        #     pass
 
-        return self.current_candle[0] + timeframe
+        # return self.current_candle[0] + timeframe
+        return self.current_candle[0]
 
     @property
     def ts(self):
